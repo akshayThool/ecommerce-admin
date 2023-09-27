@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Store } from "@prisma/client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   Check,
   ChevronsUpDown,
@@ -42,6 +42,7 @@ export default function StoreSwitcher({
 }: StoreSwitcherProps) {
   const storeModal = useStoreModal();
   const params = useParams();
+  const pathname = usePathname();
   const router = useRouter();
 
   const formattedItems = items.map((item) => ({
@@ -55,9 +56,25 @@ export default function StoreSwitcher({
 
   const [open, setOpen] = useState<boolean>(false);
 
+  const getExistingPathSuffix = (existingPath: string): string => {
+    let index: number = 0;
+    for (let i: number = 1; i < existingPath.length; i++) {
+      if (existingPath[i] === "/") {
+        index = i;
+        break;
+      }
+    }
+
+    if (index === 0) {
+      return "";
+    }
+
+    return existingPath.substring(index);
+  };
+
   const onStoreSelect = (store: { label: string; value: string }) => {
     setOpen(false);
-    router.push(`/${store.value}`);
+    router.push(`/${store.value}${getExistingPathSuffix(pathname)}`);
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>

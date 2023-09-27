@@ -22,8 +22,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useParams, useRouter } from "next/navigation";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { ApiAlert } from "@/components/ui/alert-api";
-import { useOrigin } from "@/hooks/use-origin";
 import { ImageUpload } from "../ui/image-upload";
 
 interface BillboardsFormProps {
@@ -42,7 +40,6 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
 }) => {
   const params = useParams();
   const router = useRouter();
-  const origin = useOrigin();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -83,7 +80,6 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
         `/api/stores/${params.storeId}/billboards/${params.billboardId}`
       );
       router.refresh();
-      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard Deleted");
     } catch (error) {
       toast.error(

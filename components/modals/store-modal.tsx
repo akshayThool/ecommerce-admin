@@ -7,7 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-import Modal from "@/components/ui/modal";
+import { Modal } from "@/components/ui/modal";
 import { useStoreModal } from "@/hooks/use-store-modal";
 import {
   Form,
