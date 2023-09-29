@@ -4,15 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: { storeId: string } },
 ) {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return new NextResponse("Unauthenticated", { status: 401 });
-    }
-
     if (!params.storeId) {
       return new NextResponse("StoreId is required", { status: 400 });
     }
@@ -32,7 +26,7 @@ export async function GET(
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: { storeId: string } },
 ) {
   try {
     const { userId } = auth();
