@@ -4,14 +4,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   _req: Request,
-  { params }: { params: { billboardId: string } }
+  { params }: { params: { billboardId: string } },
 ) {
   try {
     if (!params.billboardId) {
       return new NextResponse("BillboardId is required", { status: 400 });
     }
 
-    const billboard = await prismadb.store.findUnique({
+    const billboard = await prismadb.billboard.findUnique({
       where: {
         id: params.billboardId,
       },
@@ -26,7 +26,7 @@ export async function GET(
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; billboardId: string } },
 ) {
   try {
     const { userId } = auth();
@@ -84,7 +84,7 @@ export async function PATCH(
 
 export async function DELETE(
   _req: Request,
-  { params }: { params: { storeId: string; billboardId: string } }
+  { params }: { params: { storeId: string; billboardId: string } },
 ) {
   try {
     const { userId } = auth();
