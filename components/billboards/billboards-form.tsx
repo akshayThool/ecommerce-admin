@@ -58,7 +58,7 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
       if (initialData) {
         await axios.patch(
           `/api/stores/${params.storeId}/billboards/${params.billboardId}`,
-          data
+          data,
         );
       } else {
         await axios.post(`/api/stores/${params.storeId}/billboards`, data);
@@ -77,13 +77,14 @@ export const BillboardsForm: React.FC<BillboardsFormProps> = ({
     try {
       setLoading(true);
       await axios.delete(
-        `/api/stores/${params.storeId}/billboards/${params.billboardId}`
+        `/api/stores/${params.storeId}/billboards/${params.billboardId}`,
       );
       router.refresh();
+      router.push(`/${params.storeId}/billboards`);
       toast.success("Billboard Deleted");
     } catch (error) {
       toast.error(
-        "Make sure all the categories associated with the Billboard is deleted first!"
+        "Make sure all the categories associated with the Billboard is deleted first!",
       );
     } finally {
       setLoading(false);
