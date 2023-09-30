@@ -1,6 +1,5 @@
 "use client";
 
-import { Category } from "@prisma/client";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { format } from "date-fns";
@@ -11,9 +10,10 @@ import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import { Categories } from "@/components/categories/categories-columns";
 import { ApiList } from "@/components/ui/api-list";
+import { CategoryWithBillboard } from "@/lib/prismadb";
 
 interface CategoriesClientProps {
-  data: Category[];
+  data: CategoryWithBillboard[];
 }
 export const CategoriesClient: React.FC<CategoriesClientProps> = ({ data }) => {
   const router = useRouter();

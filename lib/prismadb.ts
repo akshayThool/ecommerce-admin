@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 declare global {
   var prisma: PrismaClient | undefined;
@@ -8,4 +8,13 @@ const prismadb = globalThis.prisma || new PrismaClient();
 if (process.env.NODE_ENV !== "production")
   globalThis.prisma = new PrismaClient();
 
+const categoryWithBillboard = Prisma.validator<Prisma.CategoryDefaultArgs>()({
+  include: {
+    billboard: true,
+  },
+});
 export default prismadb;
+
+export type CategoryWithBillboard = Prisma.CategoryGetPayload<
+  typeof categoryWithBillboard
+>;
