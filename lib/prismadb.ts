@@ -13,8 +13,18 @@ const categoryWithBillboard = Prisma.validator<Prisma.CategoryDefaultArgs>()({
     billboard: true,
   },
 });
+
+const productsWithInfo = Prisma.validator<Prisma.ProductDefaultArgs>()({
+  include: {
+    category: true,
+    size: true,
+    color: true,
+  },
+});
 export default prismadb;
 
 export type CategoryWithBillboard = Prisma.CategoryGetPayload<
   typeof categoryWithBillboard
 >;
+
+export type ProductWithInfo = Prisma.ProductGetPayload<typeof productsWithInfo>;
